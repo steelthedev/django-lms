@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'app',
     'accounts',
     'djoser',
-    'course'
+    'course',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,9 @@
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+
+from ckeditor.fields import RichTextField
+
 # Create your models here.
 class Category(models.Model):
     title = models.CharField(max_length=255)
@@ -18,8 +21,8 @@ class Course(models.Model):
     categories = models.ManyToManyField(Category)
     title = models.CharField(max_length=255)
     slug = models.SlugField()
-    short_description = models.TextField(blank=True, null=True)
-    long_description = models.TextField(blank=True, null=True)
+    short_description = RichTextField(blank=True, null=True)
+    long_description = RichTextField(blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     image = models.ImageField(blank=True, null=True)
 
@@ -51,8 +54,8 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, related_name='lessons', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = models.SlugField()
-    short_description = models.TextField(blank=True, null=True)
-    long_description = models.TextField(blank=True, null=True)
+    short_description = RichTextField(blank=True, null=True)
+    long_description = RichTextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=CHOICES_STATUS, default=PUBLISHED)
     lesson_type = models.CharField(max_length=20, choices=CHOICES_LESSON_TYPE, default=ARTICLE)
 
