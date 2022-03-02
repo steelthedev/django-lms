@@ -5,13 +5,13 @@ from .models import *
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('id','title','short_description','long_description','categories','created_at','slug','get_image')
+        fields = ('id','title','short_description','long_description','categories','created_at','slug','get_image','get_absolute_url','price')
 
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('id', 'title', 'slug', 'short_description', 'long_description', 'get_image')
+        fields = ('id', 'title', 'slug', 'price','short_description', 'long_description', 'get_image')
 
 
 class CategorySerializer(serializers.ModelSerializer):

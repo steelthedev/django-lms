@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view
 from django.http import HttpResponse, response
 from .serializers import *
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from django.db.models import Q
 # Create your views here.
 
 @api_view(['GET'])
@@ -21,6 +22,16 @@ def Get_Courses(request):
 
         if category_id:
             courses = Course.objects.filter(categories__in = [int(category_id)])
+        
+        serializer = CourseSerializer(courses, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@authentication_classes([])
+@permission_classes([])
+def Get_LatestCourses(request):
+    if request.method == "GET":
+        courses = Course.objects.all()[0:8]
         
         serializer = CourseSerializer(courses, many=True)
         return Response(serializer.data)
@@ -77,3 +88,19 @@ def Get_Comment(request, course_slug, lesson_slug):
         lesson = Lesson.objects.get(slug = lesson_slug)
         serializer = CommentSerializer(lesson.comments.all(), many=True)
         return Response(serializer.data)
+
+
+
+@api_view(['POST'])
+def Search(request):
+    if request.method == "POST":
+        q = request.data.get('query', '')
+        if q:
+            try:
+                courses = Course.objects.filter(Q(title__icontains=q)| Q(short_description__icontains=q))
+            except courses.DoesNotExist:
+                return HttpResponse(status=404)
+            serializer = CourseSerializer(courses, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"courses":[]})

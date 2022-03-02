@@ -9,5 +9,9 @@ urlpatterns = [
     path('signup', views.RegisterView, name="register"),
     path('login', obtain_auth_token, name="login"),
     path('api/v1/', include('djoser.urls.authtoken')),
+    path('profile', views.ProfileView),
+    path('profile-edit', views.ProfileEdit),
+    path('my-courses', views.MyCourseView),
+   
    
 ]

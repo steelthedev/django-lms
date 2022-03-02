@@ -14,6 +14,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
+
     def __str__(self):
         return self.title
 
@@ -25,6 +26,7 @@ class Course(models.Model):
     long_description = RichTextField(blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     image = models.ImageField(blank=True, null=True)
+    price = models.FloatField()
 
     def __str__(self):
         return self.title
@@ -32,6 +34,12 @@ class Course(models.Model):
     def get_image(self):
         if self.image:
             return 'http://127.0.0.1:8000' + self.image.url
+
+    def get_absolute_url(self):
+        return f'course/course-list/{self.slug}/'
+
+    def get_category(self):
+        return self.categories.title
         
 
 class Lesson(models.Model):
@@ -84,3 +92,5 @@ class Quiz(models.Model):
     class Meta:
         verbose_name_plural = 'Quizzes'
 
+
+ 
