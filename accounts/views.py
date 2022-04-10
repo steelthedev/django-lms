@@ -1,4 +1,5 @@
-import profile
+from functools import partial
+
 from django.shortcuts import render
 from order.serializers import MyOrderItemSerializer
 
@@ -52,12 +53,11 @@ def ProfileView(request):
         return Response(serializer.data)
 
 
-@api_view(["PUT",])
+@api_view(["PUT","PATCH"])
 @authentication_classes([authentication.TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
-
 def ProfileEdit(request):
-    if request.method == "PUT":
+    if request.method == "PATCH":
         try:
             profile = Profile.objects.get(user = request.user)
         except:
@@ -65,7 +65,7 @@ def ProfileEdit(request):
         serializer = ProfileSerializer(profile, data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return HttpResponse(status = 201)
+            return HttpResponse(status = 200)
         return Response(serializer.data)
 
 
