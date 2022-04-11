@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/v1/', include('djoser.urls.authtoken')),
     path('profile', views.ProfileView),
     path('profile-edit', views.ProfileEdit),
+    path('change-picture', views.ProfilePictureEdit),
     path('my-courses', views.MyCourseView),
    
    

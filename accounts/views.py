@@ -68,6 +68,21 @@ def ProfileEdit(request):
             return HttpResponse(status = 200)
         return Response(serializer.data)
 
+@api_view(["PUT","PATCH"])
+@authentication_classes([authentication.TokenAuthentication])
+@permission_classes([permissions.IsAuthenticated])
+def ProfilePictureEdit(request):
+    if request.method == "PATCH":
+        try:
+            profile = Profile.objects.get(user = request.user)
+        except:
+            return HttpResponse( status = 201 )
+        serializer = ProfileSerializer(profile, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return HttpResponse(status = 200)
+        return Response(serializer.data)
+
 
 
 @api_view(["GET"])
