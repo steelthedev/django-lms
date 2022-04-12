@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'djoser',
     'course',
     'ckeditor',
-    'order'
+    'order',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -129,10 +130,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS=(os.path.join(BASE_DIR,'assets/dist')),
 
 
 
@@ -188,4 +186,13 @@ REST_FRAMEWORK = {
     "rest_framework.parsers.FileUploadParser",
     )
 
+}
+
+WEBPACK_LOADER = {
+  'DEFAULT': {
+    'CACHE': not DEBUG,
+    'STATS_FILE': str(BASE_DIR.joinpath('vue-lms', 'webpack-stats.json')),
+    'POLL_INTERVAL': 0.1,
+    'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
+  }
 }
