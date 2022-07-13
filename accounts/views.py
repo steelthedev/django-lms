@@ -1,7 +1,3 @@
-from functools import partial
-
-from django.shortcuts import render
-from order.serializers import MyOrderItemSerializer
 
 # Create your views here.
 from rest_framework import status
