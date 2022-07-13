@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'course',
     'ckeditor',
     'order',
-    'webpack_loader',
+    
 ]
 
 MIDDLEWARE = [

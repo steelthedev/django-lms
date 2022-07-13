@@ -1,6 +1,5 @@
 from unicodedata import category
 from django.shortcuts import render
-from html5lib import serialize
 from course.models import *
 from rest_framework import status
 from rest_framework.response import Response
